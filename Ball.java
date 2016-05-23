@@ -5,19 +5,20 @@ import java.security.SecureRandom;
 public class Ball
 {
 	SecureRandom srand = new SecureRandom();
-	double width, height;
+	//data field
 	private double dx = 1, dy = 1;
 	double x = srand.nextDouble() + srand.nextInt(700) + 50;
 	double y = srand.nextDouble() + srand.nextInt(700) + 50;
 	double radius = srand.nextInt(20) + 10;
 	int ballColor = srand.nextInt(8);
 	public Circle circle;
+	boolean flag = false;
+	long startTime;
 	
-	Ball(double width, double height)
+	//constructor
+	Ball()
 	{
 		circle = new Circle(x, y, radius);
-		this.width = width;
-		this.height = height;
 		
 		if(ballColor == 0)
 			circle.setFill(Color.RED);
@@ -37,8 +38,12 @@ public class Ball
 			circle.setFill(Color.SKYBLUE);
 	}
 	
-	protected void moveBall()
+	//move ball
+	protected void moveBall(double width, double height)
 	{
+		if (System.currentTimeMillis() - startTime > 200)
+			flag = false;
+			
 		if (x < radius || x > width - radius) 
 		{
 			dx *= -1;
@@ -54,9 +59,14 @@ public class Ball
 		circle.setCenterY(y);						
 	}
 	
+	//to let ball reverse
 	void reverse()
 	{
+		if (flag)
+			return;
 		dx *= -1;
 		dy *= -1;
+		flag = true;
+		startTime = System.currentTimeMillis();
 	}
 }
