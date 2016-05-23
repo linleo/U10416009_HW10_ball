@@ -10,17 +10,22 @@ public class TestBall extends Application
 	{
 		BallPane ballPane = new BallPane();
 		
+		//new ten ball
 		for (int i = 0; i < 10; i++)
 			ballPane.newBall();
-
+	
+		//mouse pressed to pause
 		ballPane.setOnMousePressed(e -> ballPane.pause());
+		//mouse released to play
 		ballPane.setOnMouseReleased(e -> ballPane.play());
   
 		ballPane.setOnKeyPressed(e -> {
+			//press UP key to increase speed
 			if (e.getCode() == KeyCode.UP) 
 			{
 				ballPane.increaseSpeed();
 			}
+			//press DOWN key to ecrease speed
 			else if (e.getCode() == KeyCode.DOWN) 
 			{
 				ballPane.decreaseSpeed();
